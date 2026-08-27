@@ -1,0 +1,21 @@
+{
+  "name": "Scrollcraft Director",
+  "short_name": "SC Director",
+  "description": "Scrollcraftの設計思想からClaude Code用の体験設計指示を作る。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
