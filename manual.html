@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <title>使い方 | Scrollcraft Director</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .manual-hero{padding:54px 0 28px}.manual-hero h1{font-family:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;font-size:clamp(38px,7vw,70px);line-height:1;letter-spacing:-.05em;margin:12px 0}
+    .manual-hero p{max-width:760px;color:var(--muted);font-size:17px}
+    .manual-nav{display:flex;gap:8px;flex-wrap:wrap;padding:12px 0 30px}.manual-nav a{font-size:12px;text-decoration:none;padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+    .manual-section{padding:34px 0;border-top:1px solid var(--line)}
+    .manual-section h2{font-family:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;font-size:28px;letter-spacing:-.03em}
+    .manual-card{padding:20px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.035);margin:12px 0}
+    .manual-card h3{margin:0 0 8px;font-family:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif}
+    .manual-card p{color:#bdc9d8}
+    .steps-manual{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .step-manual{padding:18px;border-radius:16px;background:rgba(114,230,197,.06);border:1px solid rgba(114,230,197,.18)}
+    .step-manual b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#062119;margin-bottom:12px}
+    .step-manual strong{display:block;font-size:15px}.step-manual span{color:var(--muted);font-size:12px}
+    .diagram{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:center;margin:18px 0}
+    .diagram div{padding:14px 8px;text-align:center;border-radius:13px;background:var(--panel);border:1px solid var(--line);font-size:12px}
+    .diagram i{text-align:center;color:var(--accent);font-style:normal}
+    .term{display:grid;grid-template-columns:180px 1fr;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+    .term strong{color:var(--accent)}
+    .problem{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+    .problem b{color:var(--warn)}
+    .back-top{position:fixed;right:14px;bottom:14px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;text-decoration:none;background:var(--accent);color:#062119;font-weight:900;box-shadow:var(--shadow)}
+    @media(max-width:700px){.steps-manual{grid-template-columns:1fr}.diagram{grid-template-columns:1fr}.diagram i{transform:rotate(90deg)}.term,.problem{grid-template-columns:1fr;gap:2px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">S</span>
+      <span><strong>Scrollcraft Director</strong><small>manual</small></span>
+    </a>
+    <nav class="top-actions"><a class="primary-btn compact" href="index.html">アプリへ戻る</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="manual-hero shell">
+      <p class="eyebrow">USER MANUAL</p>
+      <h1>使い方</h1>
+      <p>Scrollcraft Directorは、「かっこいいエフェクトを選ぶ」前に、サイトを見た人が何を感じ、どんな順番で体験するかを決めるためのアプリです。最後にClaude Codeへコピーできる実装指示を作ります。</p>
+      <nav class="manual-nav">
+        <a href="#first">まずこれだけ</a><a href="#screen">画面の見方</a><a href="#howto">使い方</a><a href="#data">データ</a><a href="#mistake">間違えたとき</a><a href="#trouble">困ったとき</a><a href="#iphone">スマホ</a><a href="#terms">用語集</a>
+      </nav>
+    </section>
+
+    <section class="manual-section shell" id="first">
+      <p class="step-label">01 · FIRST START</p>
+      <h2>まずこれだけ</h2>
+      <div class="steps-manual">
+        <div class="step-manual"><b>1</b><strong>質問に答える</strong><span>プロジェクト名と8問のインタビューを入力します。</span></div>
+        <div class="step-manual"><b>2</b><strong>「設計案を作る」</strong><span>おすすめGrammar、Feeling Curve、Signature Moveが作られます。</span></div>
+        <div class="step-manual"><b>3</b><strong>指示をコピー</strong><span>STEP 06の「今の内容をコピー」を押してClaude Codeへ貼ります。</span></div>
+      </div>
+    </section>
+
+    <section class="manual-section shell" id="screen">
+      <p class="step-label">02 · SCREEN</p>
+      <h2>画面の見方</h2>
+      <div class="diagram">
+        <div>目的<br><small>何を信じてもらう？</small></div><i>→</i>
+        <div>8問<br><small>雰囲気と旅</small></div><i>→</i>
+        <div>Grammar<br><small>ページの骨格</small></div>
+      </div>
+      <div class="diagram">
+        <div>Feeling Curve<br><small>感情の波</small></div><i>→</i>
+        <div>Signature Move<br><small>固有の1手</small></div><i>→</i>
+        <div>Claude Code<br><small>実装指示</small></div>
+      </div>
+      <div class="manual-card">
+        <h3>上の丸い数字</h3>
+        <p>今どこまで進んだかを示します。押すと、そのSTEPへ移動します。</p>
+      </div>
+      <div class="manual-card">
+        <h3>「保存」</h3>
+        <p>今の入力を、このスマホ・PCのブラウザ内に保存します。あとで「LOCAL PROJECTS」から開けます。</p>
+      </div>
+    </section>
+
+    <section class="manual-section shell" id="howto">
+      <p class="step-label">03 · HOW TO</p>
+      <h2>順番に使う</h2>
+      <div class="manual-card"><h3>STEP 01：目的</h3><p><b>「最後に何を信じてもらう？」が最重要です。</b> 機能を並べるのではなく、ページを見終えた人の考えを1文で書きます。</p></div>
+      <div class="manual-card"><h3>STEP 02：8問</h3><p>短くても構いません。分からない欄は空欄でも動きますが、Q2「旅」、Q4「覚えてほしい瞬間」、Q5「他にないこと」が具体的だと設計の質が上がります。</p></div>
+      <div class="manual-card"><h3>STEP 03：Page Grammar</h3><p>「Filmic one-shot」など8種類から選びます。これは色や雰囲気ではなく、<b>ページが映画なのか、雑誌なのか、展示室なのか</b>を決めるものです。おすすめは自動計算ですが、手で変更できます。</p></div>
+      <div class="manual-card"><h3>STEP 04：Feeling Curve</h3><p>表の各行は編集できます。Beatは場面、Feelingはそのときの感情、Causeは画面で起きること、Deviceは使うスクロール技法です。PEAKと表示された行が、最も記憶に残す場面です。</p></div>
+      <div class="manual-card"><h3>STEP 05：Signature Move</h3><p>このサイトだけの固有演出です。「別案を作る」で候補を変えられます。文章を直接書き換えても構いません。</p></div>
+      <div class="manual-card"><h3>STEP 06：出力</h3><p>「Claude Code指示」「BRIEF.md」「JSON」を切り替えられます。「今の内容をコピー」で、今見ているタブの全文をコピーします。</p></div>
+    </section>
+
+    <section class="manual-section shell">
+      <p class="step-label">04 · FEATURES</p>
+      <h2>できること一覧</h2>
+      <div class="manual-card"><p>8問インタビュー / 8種類のPage Grammar候補 / Feeling Curve / Scroll Score / Engineered Peak / Signature Move候補 / Fingerprint Gate / Claude Code用プロンプト / BRIEF.md / design.json / 端末内保存 / オフライン利用。</p></div>
+    </section>
+
+    <section class="manual-section shell" id="data">
+      <p class="step-label">05 · DATA</p>
+      <h2>データについて</h2>
+      <div class="manual-card"><h3>このスマホの中に保存します</h3><p>「保存」と「Fingerprintを保存」で保存したデータは、ブラウザの <b>localStorage</b> を使います。つまり、このアプリのサーバーへ送信するのではなく、このブラウザの中へ置きます。</p></div>
+      <div class="manual-card"><h3>再読み込みしても残る？</h3><p>「保存」を押したプロジェクトは残ります。入力途中で保存していない内容は、ブラウザの状態によって失われることがあります。大事なところまで進んだら「保存」を押してください。</p></div>
+      <div class="manual-card"><h3>端末を変えると？</h3><p>自動では移りません。設計を持ち出すときは <b>BRIEF.md</b> または <b>design.json</b> をダウンロードしてください。</p></div>
+    </section>
+
+    <section class="manual-section shell" id="mistake">
+      <p class="step-label">06 · RECOVERY</p>
+      <h2>間違えたとき</h2>
+      <div class="manual-card"><h3>Grammarを変えたい</h3><p>STEP 03で別の「このGrammarを使う」を押してください。Feeling Curveと出力が更新されます。</p></div>
+      <div class="manual-card"><h3>Signature Moveがしっくりこない</h3><p>「別案を作る」を押すか、入力欄へ直接書きます。</p></div>
+      <div class="manual-card"><h3>保存した設計を消した</h3><p>LOCAL PROJECTSで「削除」を押したデータには、アプリ内の復元機能はありません。重要な設計はBRIEF.mdも保存してください。</p></div>
+      <div class="manual-card"><h3>全部やり直す</h3><p>STEP 06の「新規プロジェクト」を押します。確認画面が出るので、消してよければ進めます。</p></div>
+    </section>
+
+    <section class="manual-section shell" id="trouble">
+      <p class="step-label">07 · TROUBLE</p>
+      <h2>困ったとき</h2>
+      <div class="problem"><b>症状</b><b>原因</b><b>どうする？</b></div>
+      <div class="problem"><span>おすすめが変</span><span>入力が短い・曖昧</span><span>Q2、Q4、Q5を具体的にするか、STEP 03で手動選択します。</span></div>
+      <div class="problem"><span>FingerprintがREVISE</span><span>過去設計と6軸中3軸以下しか違わない</span><span>Grammar・Hero・Close・Signature Moveのどれかを変え、4/6以上を目指します。</span></div>
+      <div class="problem"><span>外部サイトを読んでくれない</span><span>このアプリは外部通信をしない</span><span>URLはClaude Code指示へ渡されます。実際のサイト調査はClaude Code側で行います。</span></div>
+      <div class="problem"><span>コピーできない</span><span>ブラウザのClipboard権限</span><span>出力欄を長押しして「すべて選択」→コピーでも取得できます。</span></div>
+    </section>
+
+    <section class="manual-section shell" id="iphone">
+      <p class="step-label">08 · IPHONE</p>
+      <h2>スマホで使う方法</h2>
+      <div class="manual-card"><h3>ホーム画面に追加</h3><p>Safariで公開URLを開き、共有ボタン →「ホーム画面に追加」を選びます。PWAとして起動でき、いったん読み込んだ主要ファイルとこのマニュアルはオフラインでも開けるようにしています。</p></div>
+      <div class="manual-card"><h3>縦画面で大丈夫？</h3><p>iPhone縦画面を基準にレスポンシブ対応しています。長い表だけは横方向へスクロールできます。</p></div>
+    </section>
+
+    <section class="manual-section shell" id="terms">
+      <p class="step-label">09 · GLOSSARY</p>
+      <h2>用語集</h2>
+      <div class="term"><strong>Page Grammar</strong><span>ページの「種類」。映画、雑誌、展示室、比較画面など、全体の組み立てルール。</span></div>
+      <div class="term"><strong>Feeling Curve</strong><span>スクロール中の感情の波。安心→驚き→納得、のように先に決める。</span></div>
+      <div class="term"><strong>Engineered Peak</strong><span>一番覚えてほしい、たった1つの場面。ここに最も大きい演出予算を使う。</span></div>
+      <div class="term"><strong>Signature Move</strong><span>そのサイトでしか成立しない固有のインタラクション。</span></div>
+      <div class="term"><strong>Fingerprint Gate</strong><span>過去サイトと6項目を比較し、4項目以上違うかを見る仕組み。</span></div>
+      <div class="term"><strong>Device</strong><span>scrub、pin、reveal、panなど、スクロールに反応する見せ方の種類。</span></div>
+      <div class="term"><strong>BRIEF.md</strong><span>Claude Codeへ渡す設計の正本。Markdownという読みやすい文章形式。</span></div>
+      <div class="term"><strong>localStorage</strong><span>ブラウザが、この端末内へ小さなデータを保存する仕組み。</span></div>
+    </section>
+
+    <section class="manual-section shell">
+      <div class="manual-card">
+        <h3>詳しく知りたい人向け</h3>
+        <p>このアプリはScrollcraft本家の考え方を整理して使いやすくする補助ツールです。実装時は、Claude Code側で本家の最新SKILL.mdとreferencesを確認する指示を必ず出力します。Scrollcraft本体はMITライセンスで公開されています。</p>
+        <p><a class="secondary-btn compact" href="https://github.com/nateherkai/scroll-craft" target="_blank" rel="noreferrer">Scrollcraft公式GitHub ↗</a></p>
+      </div>
+    </section>
+  </main>
+  <a href="#top" class="back-top" aria-label="トップへ">↑</a>
+</body>
+</html>
