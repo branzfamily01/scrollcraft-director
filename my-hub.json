@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "title": "Scrollcraft Director",
+  "category": "Tools",
+  "summary": "8問のインタビューからPage Grammar・Feeling Curve・Signature Move・Fingerprintを設計し、Claude Code用のScrollcraft実装指示を生成するツール。",
+  "tags": [
+    "Scrollcraft",
+    "Claude Code",
+    "Web Design",
+    "Scrollytelling",
+    "Prompt",
+    "UX"
+  ],
+  "color": "blue",
+  "status": "active",
+  "visibility": "public",
+  "manualUrl": "https://branzfamily01.github.io/scrollcraft-director/manual.html"
+}
