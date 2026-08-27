@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Scrollcraftの設計思想を使い、Claude Code向けの体験設計・Page Grammar・Feeling Curve・Signature Move・実装指示書を作る静的Webアプリ。">
+  <title>Scrollcraft Director</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <noscript>このアプリを使うにはJavaScriptを有効にしてください。</noscript>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Scrollcraft Director トップへ">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>
+        <strong>Scrollcraft Director</strong>
+        <small>experience brief builder</small>
+      </span>
+    </a>
+    <nav class="top-actions" aria-label="主要操作">
+      <button class="ghost-btn" id="saveBtn" type="button">保存</button>
+      <a class="ghost-btn" href="manual.html">？ 使い方</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow">SCROLL AS EXPERIENCE</p>
+        <h1>テンプレ感を消す前に、<br><span>体験の骨格</span>を決める。</h1>
+        <p class="lede">質問に答えると、Page Grammar・Feeling Curve・Signature Move・Scroll Scoreをまとめ、Claude Codeへ渡せる実装指示書を生成します。API接続は不要です。</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#project">設計を始める</a>
+          <button class="secondary-btn" id="loadSampleBtn" type="button">サンプルを入れる</button>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="設計工程の概要">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="core">
+          <span>INPUT</span>
+          <strong>Intent</strong>
+        </div>
+        <div class="node node-1"><b>01</b><span>Interview</span></div>
+        <div class="node node-2"><b>02</b><span>Grammar</span></div>
+        <div class="node node-3"><b>03</b><span>Feeling</span></div>
+        <div class="node node-4"><b>04</b><span>Signature</span></div>
+        <div class="node node-5"><b>05</b><span>Prompt</span></div>
+      </div>
+    </section>
+
+    <section class="progress-wrap" aria-label="設計ステップ">
+      <div class="progress-shell">
+        <div class="progress-line"><span id="progressFill"></span></div>
+        <div class="steps" id="stepNav">
+          <a href="#project" data-step="1"><b>1</b><span>目的</span></a>
+          <a href="#interview" data-step="2"><b>2</b><span>取材</span></a>
+          <a href="#grammar" data-step="3"><b>3</b><span>文法</span></a>
+          <a href="#feeling" data-step="4"><b>4</b><span>感情</span></a>
+          <a href="#signature" data-step="5"><b>5</b><span>固有演出</span></a>
+          <a href="#output" data-step="6"><b>6</b><span>出力</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="project" data-section="1">
+      <div class="section-head">
+        <div>
+          <p class="step-label">STEP 01 · PROJECT</p>
+          <h2>何を、誰のために作る？</h2>
+        </div>
+        <p>最初に「何を見せるか」ではなく、「最後に何を信じてもらうか」を決めます。</p>
+      </div>
+
+      <div class="grid two">
+        <label class="field">
+          <span>プロジェクト名 <em>必須</em></span>
+          <input id="projectName" type="text" placeholder="例：目黒高校 学校紹介">
+        </label>
+        <label class="field">
+          <span>既存サイトURL</span>
+          <input id="sourceUrl" type="url" inputmode="url" placeholder="https://example.com/">
+          <small>このアプリ自身は外部サイトを取得しません。URLはClaude Codeへの調査指示に含めます。</small>
+        </label>
+      </div>
+
+      <div class="grid two">
+        <label class="field">
+          <span>これは何？ 誰向け？ <em>必須</em></span>
+          <textarea id="subject" rows="4" placeholder="例：高校受験を考えている中学生と保護者向けの学校紹介サイト。"></textarea>
+        </label>
+        <label class="field">
+          <span>最後に何を信じてもらう？ <em>必須</em></span>
+          <textarea id="belief" rows="4" placeholder="例：この学校なら、勉強も学校生活も自分らしく本気で楽しめる。"></textarea>
+        </label>
+      </div>
+
+      <div class="grid two">
+        <label class="field">
+          <span>最後の1アクション</span>
+          <input id="cta" type="text" placeholder="例：学校見学会を予約する">
+        </label>
+        <label class="field">
+          <span>ブランドの必須条件</span>
+          <input id="brandRules" type="text" placeholder="例：校章・紺色・公式写真を優先、架空の実績数値は禁止">
+        </label>
+      </div>
+    </section>
+
+    <section class="section shell" id="interview" data-section="2">
+      <div class="section-head">
+        <div>
+          <p class="step-label">STEP 02 · INTERVIEW</p>
+          <h2>8問で、サイトの人格を決める。</h2>
+        </div>
+        <p>Scrollcraft本家の考え方を、ブラウザだけで使える入力フォームに落とし込みました。</p>
+      </div>
+
+      <div class="question-list">
+        <article class="question-card">
+          <span class="q-no">01</span>
+          <div>
+            <h3>雰囲気を3〜5語で</h3>
+            <p>「高級」だけでなく、温度や速度まで。映画・雑誌・音楽などの参考も歓迎。</p>
+            <textarea id="vibe" rows="3" placeholder="例：知的、透明感、静かな熱量、都会的、少し意外"></textarea>
+            <input id="references" type="text" placeholder="参考：映画、雑誌、店舗、アルバムなど">
+          </div>
+        </article>
+
+        <article class="question-card">
+          <span class="q-no">02</span>
+          <div>
+            <h3>スクロールの旅を、自分の言葉で</h3>
+            <p>最初に何を見る？ 次に何が起きる？ 最後は何？ 1行1場面で書けます。</p>
+            <textarea id="journeyRaw" rows="6" placeholder="校門に立つ&#10;授業へ入る&#10;生徒の放課後を見る&#10;文化祭の熱気に包まれる&#10;進路の安心感を知る&#10;見学会へ"></textarea>
+          </div>
+        </article>
+
+        <article class="question-card">
+          <span class="q-no">03</span>
+          <div>
+            <h3>エネルギーの波</h3>
+            <p>ずっと派手にしません。静→中→高→中→静のように、波を入力します。</p>
+            <div class="segmented" id="energyPreset" role="group" aria-label="エネルギーのプリセット">
+              <button type="button" data-value="静 → 中 → 高 → 中 → 静">王道</button>
+              <button type="button" data-value="中 → 高 → 静 → 最高 → 静">ドラマ型</button>
+              <button type="button" data-value="静 → 静 → 中 → 高 → 余韻">編集型</button>
+              <button type="button" data-value="高 → 高 → 中 → 高 → 急停止">高速型</button>
+            </div>
+            <input id="energy" type="text" placeholder="例：静 → 中 → 高 → 中 → 静">
+          </div>
+        </article>
+
+        <article class="question-card">
+          <span class="q-no">04</span>
+          <div>
+            <h3>感情と「1つだけ覚えてほしい瞬間」</h3>
+            <div class="grid two">
+              <textarea id="feelRaw" rows="4" placeholder="例：安心 → 好奇心 → 驚き → 納得 → 高揚 → 決意"></textarea>
+              <textarea id="peak" rows="4" placeholder="例：文化祭の幕が開いた瞬間、画面全体が校内の熱気へ切り替わる"></textarea>
+            </div>
+          </div>
+        </article>
+
+        <article class="question-card">
+          <span class="q-no">05</span>
+          <div>
+            <h3>他のサイトにないことを1つ</h3>
+            <p>「かっこよく」ではなく、訪問者が友人に説明できる具体的な体験。</p>
+            <textarea id="uniqueSeed" rows="3" placeholder="例：廊下を進むと、窓の外の季節と学校行事が同時に進む"></textarea>
+          </div>
+        </article>
+
+        <article class="question-card">
+          <span class="q-no">06</span>
+          <div>
+            <h3>美意識のレンジ</h3>
+            <div class="range-choices" id="aestheticChoices">
+              <button type="button" data-value="premium-minimal">Premium minimal</button>
+              <button type="button" data-value="editorial">Editorial</button>
+              <button type="button" data-value="playful">Playful</button>
+              <button type="button" data-value="brutalist">Brutalist</button>
+              <button type="button" data-value="maximalist">Maximalist</button>
+              <button type="button" data-value="retro">Retro</button>
+              <button type="button" data-value="dense">Dense</button>
+            </div>
+            <input type="hidden" id="aesthetic">
+          </div>
+        </article>
+
+        <article class="question-card">
+          <span class="q-no">07</span>
+          <div>
+            <h3>世界はつながる？ 場面で切る？</h3>
+            <div class="choice-grid" id="worldModeChoices">
+              <button type="button" data-value="continuous">
+                <strong>ひとつながり</strong>
+                <span>1つの空間をずっと移動する。場所そのものが物語。</span>
+              </button>
+              <button type="button" data-value="scenes">
+                <strong>別々の場面</strong>
+                <span>章・カット・画面転換でリズムを作る。</span>
+              </button>
+            </div>
+            <input type="hidden" id="worldMode">
+          </div>
+        </article>
+
+        <article class="question-card">
+          <span class="q-no">08</span>
+          <div>
+            <h3>すでに持っている素材</h3>
+            <div class="check-grid" id="assetChecks">
+              <label><input type="checkbox" value="ロゴ">ロゴ</label>
+              <label><input type="checkbox" value="ブランドカラー">ブランドカラー</label>
+              <label><input type="checkbox" value="写真">写真</label>
+              <label><input type="checkbox" value="動画">動画</label>
+              <label><input type="checkbox" value="商品画像">商品画像</label>
+              <label><input type="checkbox" value="ブランド資料">ブランド資料</label>
+              <label><input type="checkbox" value="原稿">原稿</label>
+              <label><input type="checkbox" value="なし">なし</label>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="action-row">
+        <button class="primary-btn" id="analyzeBtn" type="button">設計案を作る</button>
+        <span class="hint">入力内容をブラウザ内で分析します。外部送信しません。</span>
+      </div>
+    </section>
+
+    <section class="section shell" id="grammar" data-section="3">
+      <div class="section-head">
+        <div>
+          <p class="step-label">STEP 03 · PAGE GRAMMAR</p>
+          <h2>色ではなく、「ページとは何か」を選ぶ。</h2>
+        </div>
+        <p id="grammarLead">入力すると、おすすめ順に並び替えます。最終決定はいつでも変更できます。</p>
+      </div>
+
+      <div class="recommendation" id="grammarRecommendation">
+        <div>
+          <span>BEST MATCH</span>
+          <strong id="bestGrammarName">まだ分析していません</strong>
+        </div>
+        <p id="bestGrammarReason">STEP 02の「設計案を作る」を押してください。</p>
+      </div>
+
+      <div class="grammar-grid" id="grammarGrid"></div>
+    </section>
+
+    <section class="section shell" id="feeling" data-section="4">
+      <div class="section-head">
+        <div>
+          <p class="step-label">STEP 04 · FEELING CURVE</p>
+          <h2>先に感情を決めて、演出は後から当てる。</h2>
+        </div>
+        <p>隣り合う場面が同じ感情なら、どちらかがフィラーになっている可能性があります。</p>
+      </div>
+
+      <div class="curve-summary">
+        <div>
+          <span class="mini-label">ENGINEERED PEAK</span>
+          <strong id="peakPreview">—</strong>
+        </div>
+        <div>
+          <span class="mini-label">TELL-SOMEONE SENTENCE</span>
+          <strong id="tellSentence">「このサイト、___するやつ」</strong>
+        </div>
+      </div>
+
+      <div class="score-table-wrap">
+        <table class="score-table">
+          <thead>
+            <tr>
+              <th>Beat</th>
+              <th>Visitor feeling</th>
+              <th>On-screen cause</th>
+              <th>Device</th>
+              <th>Span</th>
+            </tr>
+          </thead>
+          <tbody id="scoreBody"></tbody>
+        </table>
+      </div>
+      <button class="secondary-btn compact" id="addBeatBtn" type="button">＋ Beatを追加</button>
+    </section>
+
+    <section class="section shell" id="signature" data-section="5">
+      <div class="section-head">
+        <div>
+          <p class="step-label">STEP 05 · SIGNATURE + GATE</p>
+          <h2>そのサイトだけの1手を決める。</h2>
+        </div>
+        <p>既存エフェクトの色違いではなく、内容そのものと結びついた操作・変化を1つだけ作ります。</p>
+      </div>
+
+      <div class="signature-layout">
+        <article class="signature-card">
+          <span class="mini-label">SIGNATURE MOVE</span>
+          <textarea id="signatureMove" rows="6" placeholder="分析すると候補が入ります。自由に書き換えられます。"></textarea>
+          <button class="secondary-btn compact" id="regenerateSignatureBtn" type="button">別案を作る</button>
+        </article>
+
+        <article class="gate-card">
+          <div class="gate-head">
+            <div>
+              <span class="mini-label">FINGERPRINT GATE</span>
+              <strong id="gateStatus">比較対象なし</strong>
+            </div>
+            <span class="gate-badge" id="gateBadge">NEW</span>
+          </div>
+          <p id="gateText">過去のFingerprintをこの端末に保存すると、次回から6軸で「似すぎ」を判定します。</p>
+          <div class="fingerprint-grid" id="fingerprintGrid"></div>
+          <div class="action-row tight">
+            <button class="secondary-btn compact" id="saveFingerprintBtn" type="button">Fingerprintを保存</button>
+            <button class="text-btn" id="viewFingerprintsBtn" type="button">保存済みを見る</button>
+          </div>
+        </article>
+      </div>
+
+      <dialog id="fingerprintDialog">
+        <div class="dialog-head">
+          <div>
+            <span class="mini-label">LOCAL REGISTRY</span>
+            <h3>保存済みFingerprint</h3>
+          </div>
+          <button class="icon-btn" id="closeFingerprintDialog" type="button" aria-label="閉じる">×</button>
+        </div>
+        <div id="fingerprintList"></div>
+      </dialog>
+    </section>
+
+    <section class="section shell output-section" id="output" data-section="6">
+      <div class="section-head">
+        <div>
+          <p class="step-label">STEP 06 · CLAUDE CODE</p>
+          <h2>設計を、実装できる指示へ。</h2>
+        </div>
+        <p>Scrollcraftのインストール確認から検証までを、1本の指示にまとめます。</p>
+      </div>
+
+      <div class="output-tabs" role="tablist">
+        <button type="button" class="active" data-tab="prompt">Claude Code指示</button>
+        <button type="button" data-tab="brief">BRIEF.md</button>
+        <button type="button" data-tab="json">JSON</button>
+      </div>
+
+      <div class="output-panel active" data-panel="prompt">
+        <textarea id="promptOutput" class="code-output" spellcheck="false" aria-label="Claude Code指示文"></textarea>
+      </div>
+      <div class="output-panel" data-panel="brief">
+        <textarea id="briefOutput" class="code-output" spellcheck="false" aria-label="BRIEF.md"></textarea>
+      </div>
+      <div class="output-panel" data-panel="json">
+        <textarea id="jsonOutput" class="code-output" spellcheck="false" aria-label="設計JSON"></textarea>
+      </div>
+
+      <div class="output-actions">
+        <button class="primary-btn" id="copyOutputBtn" type="button">今の内容をコピー</button>
+        <button class="secondary-btn" id="downloadBriefBtn" type="button">BRIEF.md</button>
+        <button class="secondary-btn" id="downloadJsonBtn" type="button">design.json</button>
+        <button class="secondary-btn" id="newProjectBtn" type="button">新規プロジェクト</button>
+      </div>
+
+      <div class="quality-checks">
+        <h3>実装時の必須チェック</h3>
+        <div id="qualityChecks"></div>
+      </div>
+    </section>
+
+    <section class="section shell local-projects">
+      <div class="section-head compact-head">
+        <div>
+          <p class="step-label">LOCAL PROJECTS</p>
+          <h2>この端末に保存した設計</h2>
+        </div>
+        <button class="secondary-btn compact" id="refreshProjectsBtn" type="button">更新</button>
+      </div>
+      <div id="projectList" class="project-list"></div>
+      <p class="privacy-note">保存先はこのブラウザ内です。別端末へ自動同期はされません。</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <div>
+        <strong>Scrollcraft Director</strong>
+        <p>Design the experience before the effect.</p>
+      </div>
+      <div class="footer-links">
+        <a href="manual.html">使い方</a>
+        <a href="https://github.com/nateherkai/scroll-craft" target="_blank" rel="noreferrer">Scrollcraft original ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
